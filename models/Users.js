@@ -29,3 +29,4 @@ const Users = db.define('Users', {
     freezeTableName: true
 });
 
+export default Users;
