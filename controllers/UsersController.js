@@ -16,7 +16,7 @@ const generateRefreshToken = function(payload) {
 }
 
 class authController {
-    async register(req, res) {
+    async Register(req, res) {
         try {
             if(!req.body.fullName) throw {
                 code: 400,
@@ -90,7 +90,7 @@ class authController {
                 message: 'EMAIL_NOT_FOUND'
             }
 
-            const isPasswordValid = await bcrypt.compareSync(req.body.password, user.password);
+            const isPasswordValid = bcrypt.compareSync(req.body.password, user.password);
             if(!isPasswordValid) throw {
                 code: 400,
                 message: 'WRONG_PASSWORD'
@@ -120,10 +120,10 @@ class authController {
                 message: 'REFRESH_TOKEN_IS_REQUIRED'
             }
 
-            const verify = await jwt.verify(req.body.refreshToken, env.REFRESH_TOKEN);
+            const verify = jwt.verify(req.body.refreshToken, env.REFRESH_TOKEN);
 
-            const accessToken = await generateAccessToken({id: verify.id});
-            const refreshToken = await generateRefreshToken({id: verify.id});
+            const accessToken = generateAccessToken({id: verify.id});
+            const refreshToken = generateRefreshToken({id: verify.id});
 
             return res.status(200).json({
                 status: true,
