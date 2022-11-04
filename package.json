@@ -1,0 +1,20 @@
+{
+  "name": "jadi-backend",
+  "version": "1.0.0",
+  "description": "REPOSITORY FOR BACKEND SOURCE CODE",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Media-Kreasi-Abadi/batch-3-tim-h-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Media-Kreasi-Abadi/batch-3-tim-h-backend/issues"
+  },
+  "homepage": "https://github.com/Media-Kreasi-Abadi/batch-3-tim-h-backend#readme"
+}
