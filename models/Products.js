@@ -3,30 +3,35 @@ import db from "../config/db_config.js";
 
 const Product = db.define('Product', {
     productName: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     pieceOfProduct: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER,
     },
     imageProduct: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     expiredDate: {
-        type: DataTypes.DATEONLY
+        type: DataTypes.DATE,
     },
     expiredStatus: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     idProduct: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER,
     },
     stockProduct: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER,
     }
 }, {
     freezeTableName: true
 });
 
-await Product.sync();
+Product.sync();
+// db.sync().then(() => {
+//     console.log('Table created successfully!');
+// }).catch((error) => {
+//     console.error('Unable to create table : ', error);
+// });
     
 export default Product;

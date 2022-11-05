@@ -16,14 +16,12 @@ const User = db.define('User', {
     role: {
         type: DataTypes.ENUM('akun-pusat', 'akun-cabang'),
         defaultValue: 'akun-pusat'
-    },
-    refreshToken: {
-        type: DataTypes.STRING
     }
 }, {
     freezeTableName: true
 });
 
-await User.sync();
+User.sync();
+
 
 export default User;
