@@ -9,7 +9,33 @@ class productController {
                 product
             })
         } catch(error) {
-            res.status(400).json({
+            return res.status(400).json({
+                status: false,
+                message: error.message
+            });
+        }
+    }
+
+    async getProductsByName(req, res) {
+        try {
+            if(!req.params.productName) throw {
+                code: 400,
+                message: 'NAMA_PRODUK_KOSONG'
+            }
+            const product = await Product.findAll({
+                where: {
+                    productName: req.params.productName
+                }
+            });
+
+            // const view = product[0];
+
+            return res.status(200).json({
+                status: true,
+                product
+            });
+        } catch(error) {
+            return res.status(400).json({
                 status: false,
                 message: error.message
             });
@@ -30,7 +56,7 @@ class productController {
                 code: 400,
                 message: 'GAMBAR_PRODUK_HARUS_ADA'
             }
-            if(req.body.expiredDate) throw {
+            if(!req.body.expiredDate) throw {
                 code: 400,
                 message: 'ISI_TANGGAL_EXPIRE'
             }
@@ -60,6 +86,7 @@ class productController {
 
             return res.status(200).json({
                 status: true,
+                message: 'PRODUK_TELAH_DIINPUT',
                 product
             });
         } catch(error) {
@@ -70,11 +97,38 @@ class productController {
         }
     }
 
+    async updateProduct(req, res) {
+        try {
+            const product = await Product.update(req.body, {
+                where: {
+                    id: req.params.id
+                }
+            });
+
+            const updated_product = await Product.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+
+            return res.status(200).json({
+                status: true,
+                message: 'PRODUK_TELAH_DIRUBAH',
+                product: updated_product
+            });
+        } catch(error) {
+            return res.status(400).json({
+                status: false,
+                message: error.message
+            })
+        }
+    }
+
     async deleteProduct(req, res) {
         try {
             await Product.destroy({
                 where: {
-                    idProduct: req.body.idProduct
+                    productName: req.params.productName
                 }
             });
 
