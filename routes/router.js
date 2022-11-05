@@ -5,7 +5,7 @@ import jwtAuth from '../middlewares/jwtAuth.js';
 
 const router = express.Router();
 
-router.get('/', () => {
+router.get('/', (req, res) => {
     res.status(200).json({
         message: 'Selamat Datang di API Logitory!!!'
     });
