@@ -17,9 +17,11 @@ router.post('/auth/login', Auth.Login);
 router.post('/auth/refresh-token', Auth.refreshToken);
 
 // PRODUCT endpoint
-router.get('/product/view_product', /*jwtAuth()*/ Product.getProducts);
-router.post('/product/input_product', /*jwtAuth()*/ Product.inputProduct);
-router.delete('/product/delete_product', /*jwtAuth()*/ Product.deleteProduct);
+router.get('/product/view_product', jwtAuth(), Product.getProducts);
+router.get('/product/view_product/:productName', jwtAuth(), Product.getProductsByName);
+router.post('/product/input_product', jwtAuth(), Product.inputProduct);
+router.put('/product/update_product/:id', jwtAuth(), Product.updateProduct);
+router.delete('/product/delete_product/:productName', jwtAuth(), Product.deleteProduct);
 
 
 export default router;
