@@ -30,14 +30,14 @@ class authController {
                 code: 400,
                 message: 'PASSWORD_IS_REQUIRED'
             }
-            if(!req.body.password.length < 6) throw {
+            if(req.body.password.length < 6) throw {
                 code: 400,
                 message: 'PASSWORD_MINIMUM_6_CHARACTERS'
             }
 
 
-            const isEmailExist = await emailExist(req.body.email);
-            if(isEmailExist) throw {
+            const isEmailExist = await emailExist(req.body.email); // logika nya masih terbali??
+            if(!isEmailExist) throw {
                 code: 400,
                 message: 'EMAIL_ALREADY_EXIST'
             }
@@ -82,9 +82,12 @@ class authController {
             }
 
             const user = await Users.findOne({
-                email: req.body.email
+                where: {
+                    email: req.body.email
+                }
             });
-
+            // email: req.body.email
+            
             if(!user) throw {
                 code: 400,
                 message: 'EMAIL_NOT_FOUND'
@@ -99,6 +102,10 @@ class authController {
             const accessToken = await generateAccessToken({id: user._id});
             const refreshToken = await generateRefreshToken({id: user._id});
 
+            // await user.update({
+            //     refresh_token: refreshToken
+            // });
+
             return res.status(200).json({
                 status: true,
                 message: 'USER_LOGIN_SUCCESS',
@@ -106,7 +113,7 @@ class authController {
                 refreshToken
             });
         } catch(error) {
-            return res.status(error.code || 500).json({
+            return res.status(error.code >= 100 && error.code < 600 ? error.code : 500).json({
                 status: false,
                 message: error.message
             });

@@ -18,10 +18,15 @@ const Users = db.define('Users', {
         defaultValue: 'akun-pusat'
     },
     refreshToken: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     freezeTableName: true
 });
+
+(async () => {
+    await Users.sync();
+})();
 
 export default Users;
