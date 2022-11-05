@@ -1,4 +1,4 @@
-import Users from "../models/Users.js";
+import User from "../models/Users.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -37,7 +37,7 @@ class userController {
 
 
             const isEmailExist = await emailExist(req.body.email); // logika nya masih terbali??
-            if(!isEmailExist) throw {
+            if(isEmailExist) throw {
                 code: 400,
                 message: 'EMAIL_ALREADY_EXIST'
             }
@@ -45,7 +45,7 @@ class userController {
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(req.body.password, salt);
 
-            const user = await Users.create({
+            const user = await User.create({
                 fullName: req.body.fullName,
                 email: req.body.email,
                 password: hash
@@ -81,7 +81,7 @@ class userController {
                 message: 'PASSWORD_IS_REQUIRED'
             }
 
-            const user = await Users.findOne({
+            const user = await User.findOne({
                 where: {
                     email: req.body.email
                 }

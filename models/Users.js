@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db_config.js";
 
-const Users = db.define('Users', {
+const User = db.define('User', {
     fullName: {
         type: DataTypes.STRING,
         allowNull: false
@@ -18,15 +18,12 @@ const Users = db.define('Users', {
         defaultValue: 'akun-pusat'
     },
     refreshToken: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
     }
 }, {
     freezeTableName: true
 });
 
-(async () => {
-    await Users.sync();
-})();
+await User.sync();
 
-export default Users;
+export default User;

@@ -1,27 +1,32 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db_config.js";
 
-const Products = db.define('Products', {
-    fullName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    password: {
+const Product = db.define('Product', {
+    productName: {
         type: DataTypes.STRING
     },
-    role: {
-        type: DataTypes.ENUM('akun-pusat', 'akun-cabang'),
-        defaultValue: 'akun-pusat'
+    pieceOfProduct: {
+        type: DataTypes.NUMBER
     },
-    refreshToken: {
+    imageProduct: {
         type: DataTypes.STRING
+    },
+    expiredDate: {
+        type: DataTypes.DATEONLY
+    },
+    expiredStatus: {
+        type: DataTypes.STRING
+    },
+    idProduct: {
+        type: DataTypes.NUMBER
+    },
+    stockProduct: {
+        type: DataTypes.NUMBER
     }
 }, {
     freezeTableName: true
 });
 
-export default Products;
+await Product.sync();
+    
+export default Product;
