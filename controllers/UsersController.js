@@ -15,7 +15,7 @@ const generateRefreshToken = function(payload) {
     return jwt.sign(payload, env.REFRESH_TOKEN, { expiresIn: '1d' });
 }
 
-class authController {
+class userController {
     async Register(req, res) {
         try {
             if(!req.body.fullName) throw {
@@ -153,4 +153,4 @@ class authController {
     }
 }
 
-export default new authController();
+export default new userController();
