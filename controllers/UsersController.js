@@ -99,8 +99,8 @@ class userController {
                 message: 'WRONG_PASSWORD'
             }
 
-            const accessToken = await generateAccessToken({id: user._id});
-            const refreshToken = await generateRefreshToken({id: user._id});
+            const accessToken = await generateAccessToken({id: user.id, role: user.role});
+            const refreshToken = await generateRefreshToken({id: user.id, role: user.role});
 
             // await user.update({
             //     refresh_token: refreshToken
