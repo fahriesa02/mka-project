@@ -11,9 +11,9 @@ const jwtAuth = () => {
                 message: 'UNAUTHORIZED_ACCESS'
             }
             const token = req.headers.authorization.split(' ')[1];
-            console.log(token);
+            // console.log(token);
             const verify = jwt.verify(token, env.ACCESS_TOKEN_SECRET);
-            console.log(verify);
+            // console.log(verify);
             req.jwt = verify;
 
             next();
