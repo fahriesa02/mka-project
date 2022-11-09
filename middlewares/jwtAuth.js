@@ -12,7 +12,7 @@ const jwtAuth = () => {
             }
             const token = req.headers.authorization.split(' ')[1];
             // console.log(token);
-            const verify = jwt.verify(token, env.ACCESS_TOKEN_SECRET);
+            const verify = jwt.verify(token, env.ACCESS_TOKEN);
             // console.log(verify);
             req.jwt = verify;
 
@@ -23,7 +23,7 @@ const jwtAuth = () => {
             } else if(error.message == 'invalid signature' || error.message == 'jwt malformed' || error.message == 'jwt must be provided' || error.message == 'invalid token') {
                 error.message = 'INVALID_ACCESS_TOKEN'
             }
-
+            console.log(error);
             return res.status(error.code || 401).json({
                 status: false,
                 message: error.message
