@@ -18,9 +18,9 @@ const generateRefreshToken = function(payload) {
 class userController {
     async Register(req, res) {
         try {
-            if(!req.body.fullName) throw {
+            if(!req.body.companyName) throw {
                 code: 400,
-                message: 'FULLNAME_IS_REQUIRED'
+                message: 'COMPANY_NAME_IS_REQUIRED'
             }
             if(!req.body.email) throw {
                 code: 400,
@@ -46,7 +46,7 @@ class userController {
             const hash = await bcrypt.hash(req.body.password, salt);
 
             const user = await User.create({
-                fullName: req.body.fullName,
+                companyName: req.body.companyName,
                 email: req.body.email,
                 password: hash
             });
@@ -71,6 +71,11 @@ class userController {
 
     async Login(req, res) {
         try {
+            if(!req.body.idToko) throw {
+                code: 400,
+                message: 'ID_TOKO_IS_REQUIRED'
+            }
+
             if(!req.body.email) throw {
                 code: 400,
                 message: 'EMAIL_IS_REQUIRED'
@@ -99,8 +104,8 @@ class userController {
                 message: 'WRONG_PASSWORD'
             }
 
-            const accessToken = await generateAccessToken({id: user.id, role: user.role});
-            const refreshToken = await generateRefreshToken({id: user.id, role: user.role});
+            const accessToken = generateAccessToken({id: user.id, role: user.role});
+            const refreshToken = generateRefreshToken({id: user.id, role: user.role});
 
             // await user.update({
             //     refresh_token: refreshToken
