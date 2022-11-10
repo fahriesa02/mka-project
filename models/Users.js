@@ -3,8 +3,7 @@ import db from "../config/db_config.js";
 
 const User = db.define('User', {
     idToko: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
     },
     companyName: {
         type: DataTypes.STRING,
@@ -19,11 +18,10 @@ const User = db.define('User', {
         allowNull: false
     },
     city: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
     },
     phoneNumber: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     },
     role: {
         type: DataTypes.ENUM('akun-pusat', 'akun-cabang'),

@@ -13,7 +13,7 @@ const Product = db.define('Product', {
         type: DataTypes.STRING,
     },
     expiredDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     expiredStatus: {
