@@ -30,6 +30,14 @@ class userController {
                 code: 400,
                 message: 'PASSWORD_IS_REQUIRED'
             }
+            if(!req.body.city) throw {
+                code: 400,
+                message: 'DOMICILE_IS_REQUIRED'
+            }
+            if(!req.body.phoneNumber) throw {
+                code: 400,
+                message: 'PHONE_NUMBER_IS_REQUIRED'
+            }
             if(req.body.password.length < 6) throw {
                 code: 400,
                 message: 'PASSWORD_MINIMUM_6_CHARACTERS'
@@ -45,10 +53,18 @@ class userController {
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(req.body.password, salt);
 
+            const id_toko = function(companyName) {
+                const company = companyName;
+                return company[0] + '-001';
+            }
+            
             const user = await User.create({
+                idToko: id_toko(req.body.companyName),
                 companyName: req.body.companyName,
                 email: req.body.email,
-                password: hash
+                password: hash,
+                city: req.body.city,
+                phoneNumber: req.body.phoneNumber
             });
 
             if(!user) throw {
@@ -88,7 +104,8 @@ class userController {
 
             const user = await User.findOne({
                 where: {
-                    email: req.body.email
+                    email: req.body.email,
+                    idToko: req.body.idToko
                 }
             });
             // email: req.body.email
