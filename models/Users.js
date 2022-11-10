@@ -2,7 +2,11 @@ import { DataTypes } from "sequelize";
 import db from "../config/db_config.js";
 
 const User = db.define('User', {
-    fullName: {
+    idToko: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    companyName: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -11,7 +15,15 @@ const User = db.define('User', {
         allowNull: false
     },
     password: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    phoneNumber: {
+        type: DataTypes.INTEGER
     },
     role: {
         type: DataTypes.ENUM('akun-pusat', 'akun-cabang'),
