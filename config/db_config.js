@@ -1,8 +1,11 @@
 import { Sequelize } from "sequelize";
+import dotenv from 'dotenv';
 
-const db = new Sequelize('db_logitory', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql',
+const env = dotenv.config().parsed;
+
+const db = new Sequelize(env.DB_NAME, env.USER_DB, '', {
+    host: env.HOST_SQL,
+    dialect: env.DIALECT_DB,
 });
 
 export const connection = function() {
