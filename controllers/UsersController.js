@@ -26,6 +26,15 @@ class userController {
                 code: 400,
                 message: 'EMAIL_IS_REQUIRED'
             }
+            const isEmailExist = await emailExist(req.body.email); // logika nya masih terbali??
+            if(isEmailExist) throw {
+                code: 400,
+                message: 'EMAIL_ALREADY_EXIST'
+            }
+            if(!req.body.userName) throw {
+                code: 400,
+                message: 'USERNAME_IS_REQUIRED'
+            }
             if(!req.body.password) throw {
                 code: 400,
                 message: 'PASSWORD_IS_REQUIRED'
@@ -44,23 +53,19 @@ class userController {
             }
 
 
-            const isEmailExist = await emailExist(req.body.email); // logika nya masih terbali??
-            if(isEmailExist) throw {
-                code: 400,
-                message: 'EMAIL_ALREADY_EXIST'
-            }
 
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(req.body.password, salt);
 
-            const id_toko = function(companyName) {
+            const id_toko_pusat = function(companyName) {
                 const company = companyName;
                 return company[0] + '-001';
             }
             
             const user = await User.create({
-                idToko: id_toko(req.body.companyName),
+                idToko: id_toko_pusat(req.body.companyName),
                 companyName: req.body.companyName,
+                userName: req.body.userName,
                 email: req.body.email,
                 password: hash,
                 city: req.body.city,
