@@ -1,9 +1,12 @@
 import Users from "../models/Users.js";
 
-const emailExist = async (email) => {
+const emailExist = async (req) => {
     const user = await Users.findOne({
-        email: email
+        where: {
+            email: req
+        }
     });
+    console.log(user);
     if(user) {
         return true
     } else {
