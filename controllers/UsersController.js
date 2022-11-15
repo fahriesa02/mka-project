@@ -31,10 +31,10 @@ class userController {
                 code: 400,
                 message: 'EMAIL_ALREADY_EXIST'
             }
-            if(!req.body.userName) throw {
-                code: 400,
-                message: 'USERNAME_IS_REQUIRED'
-            }
+            // if(!req.body.userName) throw {
+            //     code: 400,
+            //     message: 'USERNAME_IS_REQUIRED'
+            // }
             if(!req.body.password) throw {
                 code: 400,
                 message: 'PASSWORD_IS_REQUIRED'
@@ -65,7 +65,7 @@ class userController {
             const user = await User.create({
                 idToko: id_toko_pusat(req.body.companyName),
                 companyName: req.body.companyName,
-                userName: req.body.userName,
+                // userName: req.body.userName,
                 email: req.body.email,
                 password: hash,
                 city: req.body.city,
@@ -102,10 +102,10 @@ class userController {
                 message: 'EMAIL_IS_REQUIRED'
             }
 
-            if(!req.body.userName) throw {
-                code: 400,
-                message: 'USERNAME_IS_REQUIRED'
-            }
+            // if(!req.body.userName) throw {
+            //     code: 400,
+            //     message: 'USERNAME_IS_REQUIRED'
+            // }
 
             if(!req.body.password) throw {
                 code: 400,
@@ -115,7 +115,7 @@ class userController {
             const user = await User.findOne({
                 where: {
                     email: req.body.email,
-                    userName: req.body.userName,
+                    // userName: req.body.userName,
                     idToko: req.body.idToko
                 }
             });
@@ -141,7 +141,7 @@ class userController {
 
             return res.status(200).json({
                 status: true,
-                userName: req.body.userName,
+                // userName: req.body.userName,
                 idToko: req.body.idToko,
                 message: 'USER_LOGIN_SUCCESS',
                 accessToken,
