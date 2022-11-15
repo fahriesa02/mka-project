@@ -26,7 +26,7 @@ class userController {
                 code: 400,
                 message: 'EMAIL_IS_REQUIRED'
             }
-            const isEmailExist = await emailExist(req.body.email); // logika nya masih terbali??
+            const isEmailExist = await emailExist(req.body.email);
             if(isEmailExist) throw {
                 code: 400,
                 message: 'EMAIL_ALREADY_EXIST'
