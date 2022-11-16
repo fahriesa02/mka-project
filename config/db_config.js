@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 const env = dotenv.config().parsed;
 
-const db = new Sequelize(env.DB_NAME, env.USER_DB, '', {
+const db = new Sequelize(env.DB_NAME, env.USER_DB, env.PASSWORD_DB, {
     host: env.HOST_SQL,
     dialect: env.DIALECT_DB,
 });
