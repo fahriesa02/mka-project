@@ -2,17 +2,10 @@ import { DataTypes } from "sequelize";
 import db from "../config/db_config.js";
 
 const User = db.define('User', {
-    idToko: {
-        type: DataTypes.STRING
-    },
-    companyName: {
+    id: {
         type: DataTypes.STRING,
-        allowNull: false
+        primaryKey: true
     },
-    // userName: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false
-    // },
     email: {
         type: DataTypes.STRING,
         allowNull: false
@@ -21,20 +14,18 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    city: {
-        type: DataTypes.STRING
-    },
-    phoneNumber: {
-        type: DataTypes.STRING
-    },
     role: {
         type: DataTypes.ENUM('akun-pusat', 'akun-cabang'),
         defaultValue: 'akun-pusat'
+    },
+    stored: {
+        type: DataTypes.INTEGER,
     }
 }, {
     freezeTableName: true
 });
 
+// tambahkan association model sebelum atau sesudah sync
 User.sync();
 
 
