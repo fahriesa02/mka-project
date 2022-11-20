@@ -1,32 +1,43 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db_config.js";
+// import Stores from "./Stores.js";
 
-const User = db.define('User', {
-    id: {
-        type: DataTypes.STRING,
-        primaryKey: true
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    role: {
-        type: DataTypes.ENUM('akun-pusat', 'akun-cabang'),
-        defaultValue: 'akun-pusat'
-    },
-    stored: {
-        type: DataTypes.INTEGER,
-    }
+const Users = db.define('users', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
+  },
+  // companyId: {
+  //     type: DataTypes.STRING,
+  //     allowNull: false
+  // },
+  // companyName: {
+  //     type: DataTypes.STRING,
+  //     allowNull: false
+  // },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  // city: {
+  //     type: DataTypes.STRING,
+  //     allowNull: false
+  // },
 }, {
-    freezeTableName: true
+  freezeTableName: true,
 });
 
-// tambahkan association model sebelum atau sesudah sync
-User.sync();
+// association table by foreign key
+// Users.belongsTo(Stores, {
+//     foreignKey: 'store_id'
+// });
+// Users.sync();
 
 
-export default User;
+export default Users;

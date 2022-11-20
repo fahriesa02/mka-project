@@ -1,38 +1,56 @@
 import { DataTypes } from "sequelize";
 import db from '../config/db_config.js';
+import Users from "./Users.js";
+import Warehouses from "./Warehouses.js";
 
-const Profiles = db.define('Profiles', {
-    idToko: {
-        type: DataTypes.STRING
-    },
-    namaToko: {
-        type: DataTypes.STRING
-    },
-    nomorTelpon: {
-        type: DataTypes.STRING
-    },
-    email: {
-        type: DataTypes.STRING
-    },
-    alamatTokoUtama: {
-        type: DataTypes.STRING
-    },
-    provinsi: {
-        type: DataTypes.STRING
-    },
-    kota: {
-        type: DataTypes.STRING
-    },
-    kodePos: {
-        type: DataTypes.STRING
-    },
-    industri: {
-        type: DataTypes.STRING
-    }
+const Stores = db.define('stores', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  city: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  address: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  province: {
+    type: DataTypes.STRING
+  },
+  postCode: {
+    type: DataTypes.STRING
+  },
+  phoneNumber: {
+    type: DataTypes.STRING
+  },
+  industry: {
+    type: DataTypes.STRING
+  },
+  type: {
+    type: DataTypes.ENUM('pusat', 'cabang'),
+    defaultValue: 'pusat'
+  }
 }, {
-    freezeTableName: true
+  freezeTableName: true
 });
 
-Profiles.sync();
+// Stores.belongsTo(Warehouses, {
+//     foreignKey: 'stores_id'
+// })
+// Stores.hasMany(Warehouses)
+// Stores.hasMany(Users);
+// Stores.sync();
 
-export default Profiles;
+export default Stores;
