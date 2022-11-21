@@ -1,8 +1,7 @@
-import User from "../models/Users.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import emailExist from "../lib/emailExist.js";
+// import emailExist from "../lib/emailExist.js";
 import nodemailer from 'nodemailer';
 import smtptransport from 'nodemailer-smtp-transport';
 
@@ -10,6 +9,7 @@ import userRegisterUseCase from '../usecases/userRegister.js';
 import userLoginUseCase from "../usecases/userLogin.js";
 
 import userSerializer from '../serializer/user.js';
+import refreshToken from "../usecases/refreshToken.js";
 
 const env = dotenv.config().parsed;
 
@@ -54,9 +54,8 @@ class userController {
         },
       });
     } catch(error) {
-      console.log(error);
       return next({
-        code: 'INTERNAL_SERVER_ERROR',
+        code: 'USER_REGISTER_FAILURE',
         details: error.message
       });
     }
@@ -85,40 +84,38 @@ class userController {
         ...authPayload,
       });
     } catch(error) {
-      return res.status(error.code >= 100 && error.code < 600 ? error.code : 500).json({
-        status: false,
+      return next({
+        code: 'USER_UNAUTHORIZED_ACCESS',
         message: error.message
       });
     }
   }
 
-  async refreshToken(req, res) {
+  async refreshToken(req, res, next) {
     try {
       if(!req.body.refreshToken) throw {
         code: 400,
         message: 'REFRESH_TOKEN_IS_REQUIRED'
       }
 
-      const verify = jwt.verify(req.body.refreshToken, env.REFRESH_TOKEN);
+      const reqBody = req.body.refreshToken
+      // const verify = jwt.verify(req.body.refreshToken, env.REFRESH_TOKEN);
 
-      const accessToken = generateAccessToken({id: verify.id});
-      const refreshToken = generateRefreshToken({id: verify.id});
+      // const accessToken = generateAccessToken({id: verify.id});
+      // const refreshToken = generateRefreshToken({id: verify.id});
+      let [token, errorMsg] = await refreshToken(reqBody);
+      if(errorMsg) return next({
+        code: errorMsg,
+      });
 
       return res.status(200).json({
         status: true,
         message: 'REFRESH_TOKEN_SUCCESS',
-        accessToken,
-        refreshToken
+        token
       });
     } catch(error) {
-      if(error.message == 'jwt expired') {
-        error.message = 'REFRESH_TOKEN_EXPIRED'
-      } else if(error.message == 'invalid signature' || error.message == 'jwt malformed' || error.message == 'jwt must be provided' || error.message == 'invalid token') {
-        error.message = 'INVALID_REFRESH_TOKEN'
-      }
-
-      return res.status(error.code || 500).json({
-        status: false,
+      return next({
+        code: 'INVALID_JWT_TOKEN',
         message: error.message
       })
     }
@@ -126,7 +123,7 @@ class userController {
 
   async forgetPassword(req, res) {
     let email_user = req.body.email;
-    let email_user_pass = req.body.userPassword;
+    let email_user_pass = env.NODEMAILER_PASSWORD;
     let email_recipient = req.body.emailRecipient;
 
 
