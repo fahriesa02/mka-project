@@ -19,13 +19,16 @@ export default async (params) => {
       userId: user.id,
     },
   });
+  const storeUserId = storeUser.dataValues.id;
+  const storeUserRole = storeUser.dataValues.role;
+  const storeId = storeUser.dataValues.storeId;
 
   if(!storeUser) return [null, 'USER_UNAUTHORIZED_ACCESS'];
   
   const isPasswordValid = bcrypt.compareSync(params.password, user.password);
   if(!isPasswordValid) return [null, 'INVALID_USERNAME_OR_PASSWORD'];
 
-  const payload = { id: user.id, role: user.role, storeId: storeUser.storeId };
+  const payload = { id: storeUserId, role: storeUserRole, storeId: storeId };
   const accessToken = generateAccessToken(payload);
   const refreshToken = generateRefreshToken(payload);
   
