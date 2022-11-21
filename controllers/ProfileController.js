@@ -1,28 +1,18 @@
-import Profile from '../models/Stores.js';
+import getStoreProfile from '../usecases/getStoreProfile.js';
+import updateStoreProfile from '../usecases/updateStoreProfile.js';
 
-class profileController {
-  async getProfile(req, res) {
+class StoreController {
+  async getProfile(req, res, next) {
     try {
-      if(!req.body.idToko) throw {
-        code: 400,
-        message: 'ID_TOKO_REQUIRED_FOR_PROFILE'
-      }
-      if(!req.body.namaToko) throw {
-        code: 400,
-        message: 'NAMA_TOKO_REQUIRED_FOR_PROFILE'
-      }
-
-      const userProfile = await Profile.findAll({
-        where: {
-          idToko: req.body.idToko,
-          namaToko: req.body.namaToko
-        }
+      let [records, errorMsg] = await getStoreProfile(req);
+      if(errorMsg) return next({
+        code: errorMsg,
       });
 
       return res.status(200).json({
         status: true,
         message: 'PROFILE_FOUND',
-        userProfile
+        profile: records
       })
     } catch(error) {
       res.status(400).json({
@@ -32,26 +22,19 @@ class profileController {
     }
   }
 
-  async updateProfile(req, res) {
+  async updateProfile(req, res, next) {
     try {
-      const payload = req.body;
-
-      const updateProfile = await Profile.update(payload, {
-        where: {
-          idToko: req.body.idToko
-        }
-      });
-
-      const latestProfile = await Profile.findOne({
-        where: {
-          idToko: req.body.idToko
-        }
+      // console.log("awal", req.body, req.jwt);
+      const update = { body: req.body, jwt: req.jwt };
+      let [records, errorMsg] = await updateStoreProfile(update);
+      if(errorMsg) return next({
+        code: errorMsg,
       });
 
       return res.status(200).json({
-        status:true,
+        status: true,
         message: 'PROFILE_HAS_BEEN_UPDATED',
-        profile: latestProfile
+        profile: records
       });
     } catch(error) {
       return res.status(400).json({
@@ -62,4 +45,4 @@ class profileController {
   }
 }
 
-export default new profileController();
+export default new StoreController();
