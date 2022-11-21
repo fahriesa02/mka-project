@@ -17,16 +17,7 @@ app.use(bodyParser.json());
 
 app.use('/', router);
 
-// app.use((req, res) => {
-//     return res.status(404).json({
-//         message: '404_NOT_FOUND'
-//     });
-// });
 app.use(errorHandler);
-// app.use((err, req, res, next) => {
-//   console.error(err.stack)
-//   res.status(500).send('Something broke!')
-// })
 
 connection();
 
