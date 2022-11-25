@@ -1,6 +1,6 @@
 import express from 'express';
 import Auth from '../controllers/UsersController.js';
-import Product from '../controllers/ProductsController.js';
+import Product from '../controllers/ProductController.js';
 import Stores from '../controllers/ProfileController.js';
 import Settings from '../controllers/SettingController.js';
 import jwtAuth from '../middlewares/jwtAuth.js';
@@ -26,12 +26,10 @@ router.put('/profile/edit_profile', jwtAuth(), Stores.updateProfile);
 // SETTING endpoint
 router.get('/setting', jwtAuth(), Settings.getStoreSetting);
 
-// PRODUCT endpoint
-router.get('/product/view_product', jwtAuth(), Product.getProducts);
-router.get('/product/view_product/:productName', jwtAuth(), Product.getProductsByName);
-router.post('/product/input_product', jwtAuth(), Product.inputProduct);
-router.put('/product/update_product/:productName', jwtAuth(), Product.updateProduct);
-router.delete('/product/delete_product/:productName', jwtAuth(), Product.deleteProduct);
-
+// ITEM MANAGEMENT endpoint
+router.get('/product/product_available', jwtAuth(), Product.productAvailable);
+router.get('/product/product_almost_out', jwtAuth(), Product.productAlmostOut);
+router.get('/product/product_expired', jwtAuth(), Product.productExpired);
+router.get('/product/product_sold_out', jwtAuth(), Product.productSoldOut);
 
 export default router;

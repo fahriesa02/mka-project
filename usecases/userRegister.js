@@ -11,12 +11,11 @@ export default async (params) => {
 
   const store = await Stores.create(storeParams);
   if(!store) return [null, 'FAILED_TO_CREATE_STORE'];
-  
 
   await StoreUsers.create({
     storeId: store.id,
-    userId: user.id
+    userId: user.id,
   });
 
-  return [{user, store}, null];
+  return [{ user, store }, null];
 }

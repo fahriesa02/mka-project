@@ -1,7 +1,6 @@
 import { DataTypes } from "sequelize";
-import db from '../config/db_config.js';
-import Users from "./Users.js";
-import Warehouses from "./Warehouses.js";
+import db from "../config/db_config.js";
+
 
 const Stores = db.define('stores', {
   id: {
@@ -41,16 +40,9 @@ const Stores = db.define('stores', {
   type: {
     type: DataTypes.ENUM('pusat', 'cabang'),
     defaultValue: 'pusat'
-  }
+  },
 }, {
-  freezeTableName: true
+  freezeTableName: true,
 });
-
-// Stores.belongsTo(Warehouses, {
-//     foreignKey: 'stores_id'
-// })
-// Stores.hasMany(Warehouses)
-// Stores.hasMany(Users);
-// Stores.sync();
 
 export default Stores;

@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db_config.js";
+import Stores from "./Stores.js";
 
 const Products = db.define('products', {
   id: {
@@ -18,21 +19,15 @@ const Products = db.define('products', {
   skuProduct: {
     type: DataTypes.STRING,
   },
-  quantityProduct: {
-    type: DataTypes.INTEGER,
-  },
   storeId: {
     type: DataTypes.INTEGER,
+    references: {
+      model: Stores,
+      key: 'id'
+    }
   },
 }, {
-  freezeTableName: true
+  freezeTableName: true,
 });
 
-// Products.sync();
-// db.sync().then(() => {
-//     console.log('Table created successfully!');
-// }).catch((error) => {
-//     console.error('Unable to create table : ', error);
-// });
-    
 export default Products;

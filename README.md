@@ -1,4 +1,4 @@
-# README REPOSITORY BACKEND TIM AHMAD YANI
+## README REPOSITORY BACKEND TIM AHMAD YANI
 
 REPOSITORY FOR BACKEND SOURCE CODE
 
@@ -10,62 +10,5 @@ REPOSITORY FOR BACKEND SOURCE CODE
 ## FURTHER BRANCH
 
 1. MASTER
-2. DEVELOP
-3. BELAJAR - active
-
-## PARAMETER REQUEST ENDPOINT REGISTER
-
-JSON FORMAT INPUT REQUEST
-{
-    "companyName": "Zaenal Mart",
-    "email": "zaenal@gmail.com",
-    "city": "Balikpapan",
-    "phoneNumber": "089500001111",
-    "password": "zaenal02"
-}
-
-## PARAMETER REQUEST ENDPOINT LOGIN
-
-JSON FORMAT INPUT LOGIN
-{
-    "idToko": "Z-001",
-    "email": "zaenal@gmail.com",
-    "password": "zaenal02"
-}
-
-## PARAMETER REQUEST ENDPOINT REFRESH TOKEN
-
-JSON FORMAT INPUT REFRESH TOKEN
-{
-    "refreshToken": "string contains valid refresh token"
-}
-
-## PARAMETER REQUEST ENDPOINT VIEW PRODUCT
-
-## PARAMETER REQUEST ENDPOINT INPUT PRODUCT
-
-JSON FORMAT INPUT (INPUT PRODUCT)
-{
-    "productName": "PRODUCT NAME",
-    "pieceOfProduct": "HOW MUCH PIECES",
-    "imageProduct": "IMAGE OF PRODUCT",
-    "expiredDate": "PRODUCT'S DATE EXPIRED",
-    "expiredStatus": "DEFAULT IS NOT EXPIRED",
-    "idProduct": "ID FROM PRODUCT",
-    "stockProduct": "HOW MUCH PRODUCT"
-}
-
-## PARAMETER REQUEST ENDPOINT UPDATE PRODUCT
-
-JSON FORMAT INPUT (UPDATE PRODUCT)
-{
-    "productName": "PRODUCT NAME",
-    "pieceOfProduct": "HOW MUCH PIECES",
-    "imageProduct": "IMAGE OF PRODUCT",
-    "expiredDate": "PRODUCT'S DATE EXPIRED",
-    "expiredStatus": "DEFAULT IS NOT EXPIRED",
-    "idProduct": "ID FROM PRODUCT",
-    "stockProduct": "HOW MUCH PRODUCT"
-}
-
-## PARAMETER REQUEST ENDPOINT DELETE PRODUCT
+2. DEVELOP - active
+3. PRODUCTION

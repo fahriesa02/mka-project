@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db_config.js";
-// import Stores from "./Stores.js";
 
 const Users = db.define('users', {
   id: {
@@ -31,13 +30,7 @@ const Users = db.define('users', {
   // },
 }, {
   freezeTableName: true,
-});
-
-// association table by foreign key
-// Users.belongsTo(Stores, {
-//     foreignKey: 'store_id'
-// });
-// Users.sync();
+})
 
 
 export default Users;

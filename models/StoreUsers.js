@@ -1,7 +1,7 @@
-import { DataTypes } from 'sequelize';
-import db from '../config/db_config.js';
-import Stores from './Stores.js';
-import Users from './Users.js';
+import { DataTypes } from "sequelize";
+import db from "../config/db_config.js";
+import Stores from "./Stores.js";
+import Users from "./Users.js";
 
 const StoreUsers = db.define('store_users', {
   // id: {
@@ -30,8 +30,8 @@ const StoreUsers = db.define('store_users', {
     type: DataTypes.ENUM('owner', 'staff'),
     defaultValue: 'staff',
   },
+}, {
+  freezeTableName: true,
 });
-
-// StoreUsers.sync();
 
 export default StoreUsers;

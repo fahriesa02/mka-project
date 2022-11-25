@@ -1,6 +1,5 @@
 import Stores from "../models/Stores.js";
 
-
 export default async (params) => {
   const storeProfile = await Stores.findOne({
     where: {

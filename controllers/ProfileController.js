@@ -24,7 +24,6 @@ class StoreController {
 
   async updateProfile(req, res, next) {
     try {
-      // console.log("awal", req.body, req.jwt);
       const update = { body: req.body, jwt: req.jwt };
       let [records, errorMsg] = await updateStoreProfile(update);
       if(errorMsg) return next({
